@@ -8,6 +8,26 @@
 import UIKit
 import CoreData
 
+struct News: Decodable {
+    var newsTitle: String
+    var newsSource: String
+    var newsDescription: String
+    var newsTime: String
+    var newsDetailURL: String
+    var urlImage: String?
+    
+    init(dictionary: Dictionary<String, Any>) {
+        newsTitle = dictionary["title"] as? String ?? ""
+        newsSource = dictionary["author"] as? String ?? ""
+        newsDescription = dictionary["description"] as? String ?? ""
+        newsTime = dictionary["publishedAt"] as? String ?? ""
+        newsDetailURL = dictionary["url"] as? String ?? ""
+        urlImage = dictionary["urlToImage"] as? String ?? nil
+    }
+}
+
+var newsArray = [News]()
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

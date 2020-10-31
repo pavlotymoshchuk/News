@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		040E4FC2254E001C00EE47E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FC1254E001C00EE47E9 /* AppDelegate.swift */; };
 		040E4FC4254E001C00EE47E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FC3254E001C00EE47E9 /* SceneDelegate.swift */; };
-		040E4FC6254E001C00EE47E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FC5254E001C00EE47E9 /* ViewController.swift */; };
+		040E4FC6254E001C00EE47E9 /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FC5254E001C00EE47E9 /* NewsVC.swift */; };
 		040E4FC9254E001C00EE47E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040E4FC7254E001C00EE47E9 /* Main.storyboard */; };
 		040E4FCC254E001C00EE47E9 /* News.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FCA254E001C00EE47E9 /* News.xcdatamodeld */; };
 		040E4FCE254E001D00EE47E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 040E4FCD254E001D00EE47E9 /* Assets.xcassets */; };
 		040E4FD1254E001D00EE47E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 040E4FCF254E001D00EE47E9 /* LaunchScreen.storyboard */; };
 		040E4FDC254E001D00EE47E9 /* NewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FDB254E001D00EE47E9 /* NewsTests.swift */; };
 		040E4FE7254E001D00EE47E9 /* NewsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FE6254E001D00EE47E9 /* NewsUITests.swift */; };
+		040E4FFF254E046600EE47E9 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E4FFE254E046600EE47E9 /* NewsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 		040E4FBE254E001C00EE47E9 /* News.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = News.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		040E4FC1254E001C00EE47E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040E4FC3254E001C00EE47E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		040E4FC5254E001C00EE47E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		040E4FC5254E001C00EE47E9 /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
 		040E4FC8254E001C00EE47E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		040E4FCB254E001C00EE47E9 /* News.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = News.xcdatamodel; sourceTree = "<group>"; };
 		040E4FCD254E001D00EE47E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +52,8 @@
 		040E4FE2254E001D00EE47E9 /* NewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		040E4FE6254E001D00EE47E9 /* NewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsUITests.swift; sourceTree = "<group>"; };
 		040E4FE8254E001D00EE47E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		040E4FF7254E005000EE47E9 /* News.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = News.entitlements; sourceTree = "<group>"; };
+		040E4FFE254E046600EE47E9 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +104,11 @@
 		040E4FC0254E001C00EE47E9 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				040E4FF7254E005000EE47E9 /* News.entitlements */,
 				040E4FC1254E001C00EE47E9 /* AppDelegate.swift */,
 				040E4FC3254E001C00EE47E9 /* SceneDelegate.swift */,
-				040E4FC5254E001C00EE47E9 /* ViewController.swift */,
+				040E4FC5254E001C00EE47E9 /* NewsVC.swift */,
+				040E4FFE254E046600EE47E9 /* NewsTableViewCell.swift */,
 				040E4FC7254E001C00EE47E9 /* Main.storyboard */,
 				040E4FCD254E001D00EE47E9 /* Assets.xcassets */,
 				040E4FCF254E001D00EE47E9 /* LaunchScreen.storyboard */,
@@ -261,8 +266,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				040E4FC6254E001C00EE47E9 /* ViewController.swift in Sources */,
+				040E4FC6254E001C00EE47E9 /* NewsVC.swift in Sources */,
 				040E4FC2254E001C00EE47E9 /* AppDelegate.swift in Sources */,
+				040E4FFF254E046600EE47E9 /* NewsTableViewCell.swift in Sources */,
 				040E4FCC254E001C00EE47E9 /* News.xcdatamodeld in Sources */,
 				040E4FC4254E001C00EE47E9 /* SceneDelegate.swift in Sources */,
 			);
@@ -440,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = News/News.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TKCHBW3N32;
 				INFOPLIST_FILE = News/Info.plist;
@@ -449,6 +456,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = tymoshch.News;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -459,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = News/News.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TKCHBW3N32;
 				INFOPLIST_FILE = News/Info.plist;
@@ -468,6 +477,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = tymoshch.News;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
