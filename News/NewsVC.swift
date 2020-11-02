@@ -27,11 +27,9 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         gettingNews()
         refresh.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         newsTableView.addSubview(refresh)
-        newsTableView.rowHeight = 100
     }
     
-    func gettingNews()
-    {
+    func gettingNews() {
         newsArray.removeAll()
         let urlString = "https://newsapi.org/v2/top-headlines?" +
             "country=ua&" +
@@ -52,16 +50,6 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }.resume()
         }
     }
-    
-    func showDetail(_ link: String) {
-        if let url = URL(string: link) {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
-        }
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         newsArray.count
@@ -73,29 +61,67 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             cell.newsTitleLabel?.text = news.newsTitle
             cell.newsSourceLabel?.text = news.newsSource
             cell.newsDescriptionLabel?.text = news.newsDescription
-            cell.newsTimeLabel?.text = news.newsTime
-//            if let newsImageUrl = news.urlImage {
-//                newsTableView.rowHeight = 150
-//                cell.newsTitleLabel?.frame.origin.y += 50
-//                cell.newsSourceLabel?.frame.origin.y += 50
-//                cell.newsDescriptionLabel?.frame.origin.y += 50
-//                cell.newsTimeLabel?.frame.origin.y += 50
-//                
-//                let url = URL(string: newsImageUrl)!
-//                let data = try? Data(contentsOf: url)
-//                cell.newsImage.image = UIImage(data: data!)
-//                cell.newsImage.frame.size = CGSize(width: view.frame.width, height: 50)
-//                cell.newsImage.frame.origin = CGPoint(x: 0, y: 0)
-//            }
+            cell.showNewsDetailView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showDetail)))
+            cell.showNewsDetailView.isUserInteractionEnabled = true
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            if let date = formatter.date(from: news.newsTime) {
+                formatter.dateFormat = "HH:mm"
+                cell.newsTimeLabel?.text = formatter.string(from: date)
+            } else {
+                cell.newsTimeLabel?.text = ""
+            }
+            if let newsImageUrl = news.urlImage {
+                newsTableView.rowHeight = 150
+                cell.newsTitleLabel?.frame.origin.y = 60
+                cell.newsSourceLabel?.frame.origin.y = 90
+                cell.newsDescriptionLabel?.frame.origin.y = 120
+                cell.newsTimeLabel?.frame.origin.y = 60
+
+                let url = URL(string: newsImageUrl)
+                let data = try? Data(contentsOf: url!)
+                if let imageData = data {
+                    cell.newsImage.image = UIImage(data: imageData)
+                }
+            } else {
+                newsTableView.rowHeight = 100
+                cell.newsTitleLabel?.frame.origin.y = 10
+                cell.newsSourceLabel?.frame.origin.y = 40
+                cell.newsDescriptionLabel?.frame.origin.y = 70
+                cell.newsTimeLabel?.frame.origin.y = 10
+            }
             
             return cell
         }
         return UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showDetail(newsArray[indexPath.row].newsDetailURL)
+    @objc func showDetail(_ sender:UITapGestureRecognizer) {
+        if #available(iOS 11.0, *) {
+            var pointValue = CGPoint()
+            pointValue = sender.location(in: newsTableView)
+            var indexPath = IndexPath()
+            indexPath = newsTableView.indexPathForRow(at: pointValue)!
+            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                let vc = SFSafariViewController(url: url, configuration: config)
+                present(vc, animated: true, completion: nil)
+            }
+        }
     }
+    
+   
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if #available(iOS 11.0, *) {
+//            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
+//                let config = SFSafariViewController.Configuration()
+//                config.entersReaderIfAvailable = true
+//                let vc = SFSafariViewController(url: url, configuration: config)
+//                present(vc, animated: true, completion: nil)
+//            }
+//        }
+//    }
 
 }
-
