@@ -8,9 +8,18 @@
 import UIKit
 import SafariServices
 
-class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
     @IBOutlet weak var newsTableView: UITableView!
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredNews = [News]()
+    var searchBarIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else { return false }
+        return text.isEmpty
+    }
+    var isFiltering: Bool {
+        return searchController.isActive && !searchBarIsEmpty
+    }
     
     //MARK: - Refresh
     var refresh = UIRefreshControl()
@@ -27,6 +36,14 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         gettingNews()
         refresh.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         newsTableView.addSubview(refresh)
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        if #available(iOS 11.0, *) {
+            self.newsTableView.tableHeaderView = self.searchController.searchBar
+        }
+        definesPresentationContext = true
     }
     
     func gettingNews() {
@@ -52,12 +69,24 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        newsArray.count
+        //MARK: - Filtering
+        if isFiltering {
+            return filteredNews.count
+        } else {
+            return newsArray.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell {
-            let news = newsArray[indexPath.row]
+            //MARK: - Filtering
+            let news: News
+            if isFiltering {
+                news = filteredNews[indexPath.row]
+            } else {
+                news = newsArray[indexPath.row]
+            }
             cell.newsTitleLabel?.text = news.newsTitle
             cell.newsSourceLabel?.text = news.newsSource
             cell.newsDescriptionLabel?.text = news.newsDescription
@@ -77,7 +106,6 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 cell.newsSourceLabel?.frame.origin.y = 90
                 cell.newsDescriptionLabel?.frame.origin.y = 120
                 cell.newsTimeLabel?.frame.origin.y = 60
-
                 let url = URL(string: newsImageUrl)
                 let data = try? Data(contentsOf: url!)
                 if let imageData = data {
@@ -96,23 +124,45 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
+    //MARK: - Show news detail
     @objc func showDetail(_ sender:UITapGestureRecognizer) {
         if #available(iOS 11.0, *) {
             var pointValue = CGPoint()
             pointValue = sender.location(in: newsTableView)
             var indexPath = IndexPath()
             indexPath = newsTableView.indexPathForRow(at: pointValue)!
-            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
+            let news: News
+            if isFiltering {
+                news = filteredNews[indexPath.row]
+            } else {
+                news = newsArray[indexPath.row]
+            }
+            if let url = URL(string: news.newsDetailURL) {
+                print(news.newsDetailURL)
                 let config = SFSafariViewController.Configuration()
                 config.entersReaderIfAvailable = true
                 let vc = SFSafariViewController(url: url, configuration: config)
-                present(vc, animated: true, completion: nil)
+                let searchedТext = searchController.searchBar.text!
+                searchController.isActive = false
+                isFiltering ? searchController.present(vc, animated: true, completion: nil) : present(vc, animated: true, completion: nil)
+                searchController.searchBar.text = searchedТext
             }
         }
     }
     
-   
+    //MARK: - SearchResults
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
     
+    func filterContentForSearchText(_ searchText: String) {
+        filteredNews = newsArray.filter({ (news: News) -> Bool in
+            return news.newsTitle.lowercased().contains(searchText.lowercased()) || news.newsSource.lowercased().contains(searchText.lowercased()) || news.newsDescription.lowercased().contains(searchText.lowercased())
+        })
+        newsTableView.reloadData()
+    }
+   
+    //MARK: - didSelectRowAt
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if #available(iOS 11.0, *) {
 //            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
