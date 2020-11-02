@@ -12,6 +12,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     @IBOutlet weak var newsTableView: UITableView!
     let searchController = UISearchController(searchResultsController: nil)
+    
     var filteredNews = [News]()
     var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
@@ -31,6 +32,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         refresh.endRefreshing()
     }
     
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         gettingNews()
@@ -46,6 +48,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         definesPresentationContext = true
     }
     
+    //MARK: - Getting news from server
     func gettingNews() {
         newsArray.removeAll()
         let urlString = "https://newsapi.org/v2/top-headlines?" +
@@ -68,6 +71,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         }
     }
 
+    //MARK: - tableView numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //MARK: - Filtering
         if isFiltering {
@@ -78,6 +82,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
     }
     
+    //MARK: - tableView cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell {
             //MARK: - Filtering
