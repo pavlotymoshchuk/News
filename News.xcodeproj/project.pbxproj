@@ -104,7 +104,6 @@
 		040E4FC0254E001C00EE47E9 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				040E4FF7254E005000EE47E9 /* News.entitlements */,
 				040E4FC1254E001C00EE47E9 /* AppDelegate.swift */,
 				040E4FC3254E001C00EE47E9 /* SceneDelegate.swift */,
 				040E4FC5254E001C00EE47E9 /* NewsVC.swift */,
@@ -112,6 +111,7 @@
 				040E4FC7254E001C00EE47E9 /* Main.storyboard */,
 				040E4FCD254E001D00EE47E9 /* Assets.xcassets */,
 				040E4FCF254E001D00EE47E9 /* LaunchScreen.storyboard */,
+				040E4FF7254E005000EE47E9 /* News.entitlements */,
 				040E4FD2254E001D00EE47E9 /* Info.plist */,
 				040E4FCA254E001C00EE47E9 /* News.xcdatamodeld */,
 			);

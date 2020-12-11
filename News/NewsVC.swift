@@ -70,7 +70,7 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             }.resume()
         }
     }
-
+    
     //MARK: - tableView numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //MARK: - Filtering
@@ -111,10 +111,11 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                 cell.newsSourceLabel?.frame.origin.y = 90
                 cell.newsDescriptionLabel?.frame.origin.y = 120
                 cell.newsTimeLabel?.frame.origin.y = 60
-                let url = URL(string: newsImageUrl)
-                let data = try? Data(contentsOf: url!)
-                if let imageData = data {
-                    cell.newsImage.image = UIImage(data: imageData)
+                if let url = URL(string: newsImageUrl) {
+                    let data = try? Data(contentsOf: url)
+                    if let imageData = data {
+                        cell.newsImage.image = UIImage(data: imageData)
+                    }
                 }
             } else {
                 newsTableView.rowHeight = 100
@@ -166,17 +167,17 @@ class NewsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         })
         newsTableView.reloadData()
     }
-   
+    
     //MARK: - didSelectRowAt
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if #available(iOS 11.0, *) {
-//            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
-//                let config = SFSafariViewController.Configuration()
-//                config.entersReaderIfAvailable = true
-//                let vc = SFSafariViewController(url: url, configuration: config)
-//                present(vc, animated: true, completion: nil)
-//            }
-//        }
-//    }
-
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        if #available(iOS 11.0, *) {
+    //            if let url = URL(string: newsArray[indexPath.row].newsDetailURL) {
+    //                let config = SFSafariViewController.Configuration()
+    //                config.entersReaderIfAvailable = true
+    //                let vc = SFSafariViewController(url: url, configuration: config)
+    //                present(vc, animated: true, completion: nil)
+    //            }
+    //        }
+    //    }
+    
 }
